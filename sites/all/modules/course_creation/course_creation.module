@@ -621,6 +621,13 @@ function course_creation_block_info() {
     'region' => 'sidebar_first',
   );
 
+   $blocks['config_footer'] = array(
+    'info' => t('Configurable footer'),
+    'region' => 'footer',
+  );
+
+
+
   return $blocks;
 }
 
@@ -643,7 +650,9 @@ function course_creation_block_view($delta = '') {
 
       break;
 
-
+    case 'config_footer':
+    	//$block['subject'] = t('Configurable Footer');
+    	$block['content'] = "<h1>"."<strong>".l(t('Post Issue'), 'https://github.com/fierarufmihai/planetary_panta/issues')."</strong>"."&nbsp &nbsp &nbsp &nbsp"."<strong>".l(t('Announcements'), 'announcements')."</strong>"."<strong>"."&nbsp &nbsp &nbsp &nbsp".l(t('Documentation'), 'documentation')."</strong>"."</h1>";
   }
 
   return $block;
@@ -917,6 +926,32 @@ function course_creation_theme() {
        array(
 	       'template' => "course_description",
 	     ),
+
+
+    'views_view__announcements' =>
+    array(
+      'template' => "views-view--announcements",
+      'original hook' => 'views_view',
+      'preprocess functions' => array( 
+         'template_preprocess',
+         'template_preprocess_views_view', 
+      ), 
+      'path' => drupal_get_path("module", "course_creation"),
+      'arguments' => array('view' => NULL, 'options' => NULL, 'row' => NULL, 'wrapper_prefix' => NULL, 'list_type_prefix'=> NULL), 
+    ),
+
+    'views_view__documentation' =>
+    array(
+      'template' => "views-view--documentation",
+      'original hook' => 'views_view',
+      'preprocess functions' => array( 
+         'template_preprocess',
+         'template_preprocess_views_view', 
+      ), 
+      'path' => drupal_get_path("module", "course_creation"),
+      'arguments' => array('view' => NULL, 'options' => NULL, 'row' => NULL, 'wrapper_prefix' => NULL, 'list_type_prefix'=> NULL), 
+    ),
+
 
 
   );

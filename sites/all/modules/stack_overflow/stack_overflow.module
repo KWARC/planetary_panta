@@ -63,14 +63,19 @@ function stack_overflow_node_view_alter(&$build) {
 
           $my_id = $build["#node"]->field_answer["und"]["0"]["nid"];
           $my_ans_id = $build["#node"]->nid;
-
+          global $user;
           $result = "";
+
+
+
+
+
+
 
           //Show Edit Link only to those who have the privillege to edit the node
           $node_to_edit = node_load($my_ans_id);
-          global $user;
-
-          //dpm(node_view_count_count_node_view(node_load($my_ans_id), $user));
+          
+    
 
           if(node_access("update", $node_to_edit, $user))
             $result .= l(t("Edit Answer"), "node/{$my_ans_id}/edit", array('query' => array()));
@@ -91,6 +96,10 @@ function stack_overflow_node_view_alter(&$build) {
           $result .= "</strong></div><br><div style='float: right'>".l(t("Comment to this Answer"), "comment/reply/{$my_ans_id}", array("fragment" => "comment-form"))."</div>";
           $result .= "<br><strong><div style='float: right'>".l(t("Subscribe to this Answer"), "node/{$my_ans_id}/subscribe", array("fragment" => "subscribe"))."</strong></div>";
 
+
+
+
+
           $build['my_additional_answer_link'] = array(
             "#weight" => 195,
             "#markup" => $result
@@ -98,6 +107,30 @@ function stack_overflow_node_view_alter(&$build) {
       
           $build['links']['comment'] = NULL;
           $build['links']['node'] = NULL;
+
+
+
+          // Show New Label to Answers nodes
+
+         
+          $ans_visits = node_view_count_count_node_view(node_load($my_ans_id), $user) ;
+          if ($ans_visits == 1)
+          {
+            $datetime_develop = date_create('2013-10-06');
+              //  Apply this only since datetime_develop
+              // We don't want all the previous answeers to look unread
+
+              if ($datetime_develop  < date_create('@'.node_load($my_ans_id)->created))
+                $build["body"]["0"]["#markup"] = "<div style='color:red;'><strong>new</strong></div>".$build["body"]["0"]["#markup"];
+
+                
+          }
+
+
+         
+
+
+
 
       }
 
@@ -210,7 +243,7 @@ function stack_overflow_mail($key, &$message, $params){
     switch($key){
 
       case "key":
-        $message["subject"] = t('PantaRhei Notification');
+        $message["subject"] = t("PantaRhei Notification: ".$params["question"]);
         $message['body'][] = 
             'Dear '.$params["name"].',
 

@@ -16,6 +16,14 @@ function course_creation_features_views_api($module = NULL, $api = NULL) {
  */
 function course_creation_features_node_info() {
   $items = array(
+    'announcement_entry' => array(
+      'name' => t('Announcement Entry'),
+      'base' => 'node_content',
+      'description' => '',
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
     'course_creation_form' => array(
       'name' => t('Course Creation Form'),
       'base' => 'node_content',
@@ -34,6 +42,14 @@ function course_creation_features_node_info() {
     ),
     'course_group' => array(
       'name' => t('Course Group'),
+      'base' => 'node_content',
+      'description' => '',
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
+    'documentation_entry' => array(
+      'name' => t('Documentation Entry'),
       'base' => 'node_content',
       'description' => '',
       'has_title' => '1',
