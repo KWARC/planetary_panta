@@ -917,7 +917,7 @@ ul.links {
 }
 #footer .region {
   margin-top: 20px;
-  display: none;
+  /*display: none;*/
 }
 #footer .block {
   clear: both;
