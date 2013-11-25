@@ -453,5 +453,7 @@ features[user_role][] = General Course Admin
 features[user_role][] = Student
 features[user_role][] = Teacher Assistant
 features[user_role][] = administrator
+features[views_view][] = announcements
 features[views_view][] = course_groups_list
+features[views_view][] = documentation
 features[views_view][] = test
