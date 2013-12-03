@@ -20,6 +20,7 @@ dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = filter
 dependencies[] = fivestar
+dependencies[] = genpass
 dependencies[] = hidden_field
 dependencies[] = image
 dependencies[] = list
