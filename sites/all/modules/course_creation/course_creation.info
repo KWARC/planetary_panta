@@ -3,3 +3,6 @@ description = "Automatically generates the relevant pages and the admin account"
 core = "7.x"
 php = "5.2.4"
 version = "7.x-1.0"
+
+dependencies[] = course_creation_features
+dependencies[] = stack_overflow

@@ -1,9 +1,4 @@
 <?php
-/**
- * @file
- * An example module to redirect the path from a node view for at
- * specific type to a view.
- */
 
 /**
  * Implementation of hook_init().
@@ -301,7 +296,7 @@ function stack_overflow_node_insert($node){
 
       if ($user_membership)
         if($user_membership->state == 1){
-          //dpm($user);
+
 
           $to = $user->mail;
           $params["name"] = $user->name;
@@ -311,9 +306,7 @@ function stack_overflow_node_insert($node){
           $params["question"] = $node->title;
           $email_from = "admin@panta.kwarc.info";
 
-         //dpm($to);
-         //dpm($params);
-         //dpm($email_from);
+     
 
           $sent = drupal_mail("stack_overflow", "key", $to, language_default(), $params, $email_from, TRUE);
 
