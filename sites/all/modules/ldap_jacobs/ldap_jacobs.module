@@ -1,0 +1,223 @@
+<?php
+
+/**
+ *	Implementation of hook_form_alter().
+ *	Change the normal login form behavior.
+ **/
+
+function ldap_jacobs_form_alter( &$form, $form_state, $form_id ){
+	if($form_id == 'user_login_block' || $form_id == 'user_login' ){
+		$form['#validate'] = array( 'user_login_name_validate', 'user_login_authenticate_validate', 'ldap_jacobs_login_validate', 'user_login_final_validate' );
+	}
+
+
+	 if ($form_id == 'user_profile_form') {
+	    $form["field_full_name"]["#access"] = FALSE; 
+	    $form["account"]["name"]["#access"] = FALSE;
+	    $form["account"]["status"]["#access"] = FALSE;
+	   	$form["account"]["roles"]["#access"] = FALSE;
+	   	$form["og_user_node"]["#access"] = FALSE;
+	   	$form['account']['mail']['#disabled'] = TRUE;
+	    //dpm($form);
+	   
+	  }
+}
+
+
+
+
+/**
+ * The function that checks if the credentials are valid and correct
+ *
+ */
+
+function ldap_jacobs_check_user($username, $password){
+
+		$r = new LdapSearch;
+		$r->connect();
+
+		$user = user_load_by_name($username);
+		if($user && ($user->name != $user->init)){
+			return false;
+		}
+		else{
+			if ($r->bind($username, $password)) drupal_set_message(t("LDAP login!"));
+			return ($r->bind($username, $password));
+		}
+
+}
+
+
+/**
+ * Gives the role id in the website from the name
+ */
+function get_role_from_name($name) {
+  $roles = user_roles();
+  return array_search($name, $roles);
+}
+
+
+
+/**
+ * Gives the role id in the group from the name
+ */
+function get_role_from_name_in_gryoup($name, $gr_bundle){
+      $query = db_select('og_role', 'r');
+     
+      $query
+        ->condition('r.name', $name, '=')
+        ->condition('r.group_bundle', $gr_bundle, '=')
+        ->fields('r', array('rid'));
+      return $query->execute();
+}
+
+
+
+/**
+ *	The ldap_jacobs_auth() function attempts to authenticate a user off the external system using their e-mail address
+ *
+ **/
+
+function ldap_jacobs_login_validate( $form, &$form_state){
+	$username = $form_state['values']['name'];
+	$response = ldap_jacobs_check_user($username, $form_state['values']['pass'] );
+	if ($response != false){
+		user_external_login_register($username, 'ldap_jacobs');
+		$account = user_external_load($username);
+		$form_state['uid'] = $account->uid;
+
+
+		// Intersession Modification:
+
+		$user = user_load_by_name($username);
+		
+		$datetime_user_created = date_create('@'.$user->created);
+		$today = new DateTime('now');
+		date_sub($today, date_interval_create_from_date_string('1 hour'));
+		
+
+		if($today < $datetime_user_created){
+
+	
+			$emails_intersession = Array
+			(
+			    "S.Bali@jacobs-university.de",
+			    "m.baltac@jacobs-university.de",
+			    "G.Cristian@jacobs-university.de",
+			    "M.Burai-Patrascu@jacobs-university.de",
+			    "j.frenster@jacobs-university.de",
+			    "an.giurgiu@jacobs-university.de",
+			    "A.Gyorev@jacobs-university.de",
+			    "R.Heidecker@jacobs-university.de",
+			    "r.homorozan@jacobs-university.de",
+			    "r.karna@jacobs-university.de",
+			    "c.kibwage@jacobs-university.de",
+			    "L.Kohlhase@jacobs-university.de",
+			    "S.Lal@jacobs-university.de",
+			    "a.latt@jacobs-university.de",
+			    "r.mwangase@jacobs-university.de",
+			    "ni.lee@jacobs-university.de",
+			    "a.lezza@jacobs-university.de",
+			    "t.luecke@jacobs-university.de",
+			    "p.majumder@jacobs-university.de",
+			    "y.mengesha@jacobs-university.de",
+			    "m.morina@jacobs-university.de",
+			    "d.kundel@jacobs-university.de",
+			    "j.ndreu@jacobs-university.de",
+			    "m.olarte@jacobs-university.de",
+			    "r.panea@jacobs-university.de",
+			    "t.pllaha@jacobs-university.de",
+			    "r.popalzai@jacobs-university.de",
+			    "s.winkelmann@jacobs-university.de",
+			    "i.popanu@jacobs-university.de",
+			    "A.Prieto@jacobs-university.de",
+			    "a.thapa@jacobs-university.de",
+			    "k.sapkota@jacobs-university.de",
+			    "l.schneider@jacobs-university.de",
+			    "r.smith@jacobs-university.de",
+			    "T.Wiesing@jacobs-university.de",
+			    "V.Steininger@jacobs-university.de",
+			    "e.stiuler@jacobs-university.de",
+			    "R.Ssenyonga@jacobs-university.de",
+			    "B.Thapaliya@jacobs-university.de",
+			    "M.Ritter@jacobs-university.de",
+			    "m.fieraru@jacobs-university.de"
+			);
+			
+			$ldap_username = variable_get('ldap_username');
+			$ldap_password = variable_get('ldap_password');
+			
+			$ldap = new LdapSearch;
+			$ldap->connect();
+			if(!$ldap->bind($ldap_username, $ldap_password)){
+				drupal_set_message(t("Could not be added to intersession course! Please contact the administrator!"), 'error');
+				return;
+			}
+			$user_array = $ldap->getByUsername($username);
+			$email_user = $user_array["email"];
+			$full_name_user = $user_array["firstname"]." ".$user_array["lastname"];
+			
+
+
+			// Set e-mail
+			$updated_user = array(
+				"mail" => $email_user,
+				"field_full_name" => array("und" => array("0" => array("value" => $full_name_user))),
+			);
+			$user = user_save($user, $updated_user);
+
+ 
+			
+
+			if(in_array($email_user, $emails_intersession)){
+				drupal_set_message(t("Added to course Documents and Structure in a Digital Age!"));
+				
+				// Set Student role in the website
+				$updated_role = $user->roles;
+				$myrid = get_role_from_name("Student");
+				$updated_role[$myrid] = "Student";
+				$updated_user = array(
+					"roles" => $updated_role,
+				);
+				$user = user_save($user, $updated_user);
+
+
+				// Add user to Course Group
+				$node_group_nid = 412;
+				og_group("node", $node_group_nid, array("entity_type" => "user", "entity" => $user));
+				$my_rids = get_role_by_name_in_gryoup("Student", "course_group");
+				foreach ($my_rids AS $r){
+					og_role_grant("node", $node_group_nid, $user->uid, $r->rid);
+				}
+
+
+
+				// Add user to General Course Group
+				$node_group_nid = 410;
+				og_group("node", $node_group_nid, array("entity_type" => "user", "entity" => $user));
+				$my_rids = get_role_by_name_in_gryoup("Student", "general_course_group");
+				foreach ($my_rids AS $r){
+					og_role_grant("node", $node_group_nid, $user->uid, $r->rid);
+				}
+
+
+
+			}
+		}
+
+
+		
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+?>
