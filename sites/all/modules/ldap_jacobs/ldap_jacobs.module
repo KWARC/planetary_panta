@@ -21,6 +21,8 @@ function ldap_jacobs_form_alter( &$form, $form_state, $form_id ){
 	    //dpm($form);
 	   
 	  }
+
+
 }
 
 
@@ -32,7 +34,6 @@ function ldap_jacobs_form_alter( &$form, $form_state, $form_id ){
  */
 
 function ldap_jacobs_check_user($username, $password){
-
 		$r = new LdapSearch;
 		$r->connect();
 
