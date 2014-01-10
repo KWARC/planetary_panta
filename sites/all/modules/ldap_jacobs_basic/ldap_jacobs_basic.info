@@ -1,0 +1,5 @@
+name = LDAP Authentification Jacobs Basic
+description = Make users connect to Drupal with JACOBS LDAP credentials
+core = 7.x
+files[] = LDAP.php
+
