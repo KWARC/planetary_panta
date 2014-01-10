@@ -873,7 +873,7 @@ function course_creation_node_view($node, $view_mode, $langcode) {
 
   if($node->type == "course_description"){
 
-  	 dpm("ok");
+ 
 
 
 
