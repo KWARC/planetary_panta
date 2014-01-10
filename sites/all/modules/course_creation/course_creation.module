@@ -942,7 +942,6 @@ function course_creation_node_view($node, $view_mode, $langcode) {
         "#markup" => $result2
      );
 
-      dpm($node->content);
   }   
 
 }
