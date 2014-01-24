@@ -1,0 +1,259 @@
+<?php
+
+function ldap_course_sync_node_view($node, $view_node, $langcode){
+	if($node->type == "course_group"){
+		global $user;
+		$course_id = $node->nid;
+		$roles = og_get_user_roles("node", $course_id, $user->uid, true);
+		if(in_array("Instructor",$roles)){
+			$node->content["my_additional_field"] = array(
+				"#weight" => 5,
+				"#markup" => "<br><br><b>Members:</b><br>".l(t("Synchronize Students with LDAP"), "ldap-course-sync/$course_id")
+			);
+		}
+
+	}
+
+
+	if($node->type == "diff_members"){
+		$node_group = node_load($node->og_group_ref["und"]["0"]["target_id"]);
+		$course_no = $node_group->field_course_number_id["und"]["0"]["value"];
+
+		
+		// COLLECTING DATA
+
+
+		// * Collecting LDAP data
+		$ldap_username = variable_get('ldap_username');
+		$ldap_password = variable_get('ldap_password');
+			
+		$ldap = new LdapSearch;
+		$ldap->connect();
+		if(!$ldap->bind($ldap_username, $ldap_password)){
+			drupal_set_message(t("Could not connect to LDAP! Please contact the administrator!"), 'error');
+			return;
+		}
+
+		$members_ldap = $ldap->getUsersForCourse($course_no);
+
+/*		$members_ldap_auth = array();
+		
+		foreach($members_ldap as $key => $value){
+			$m = $ldap->getUserforEmployeeId($key);
+
+			// Check if $m is a user of panta-rhei
+			$account_check = user_load_multiple(array(), array("mail" => ($m["email"]) ));
+			if(count($account_check)){
+				$members_ldap_auth[] = $m;
+				
+			}
+					
+		}
+		//dpm($members_ldap_auth);
+
+
+
+		// * Collecting group members
+
+		$group_members = _get_users_in_group($node_group->nid);
+		
+		$groub_members_auth = array();
+		foreach ($group_members AS $member) {
+	      $user = user_load($member->uid);
+	      $group_members_auth[] = $user;
+	  	}
+
+	  	//dpm($group_members_auth);
+
+
+
+	  	
+	  	// * Find LDAP members who are not in the group
+	  	$members_to_add = array();
+	  	foreach($members_ldap_auth as $key_ldap => $member_ldap){
+	  		$email_ldap = $member_ldap["email"];
+	  		$found = 0;
+	  		foreach($group_members_auth as $key_group => $member_group){
+	  			$email_group = $member_group->mail;
+	  			if($email_ldap == $email_group)
+	  			  	$found = 1; 
+	  		}
+	  		if($found == 0)
+	  			$members_to_add[] = $member_ldap;
+	  	}
+
+	  	dpm($members_to_add);
+*/
+
+
+	  	
+	  	
+		$result_ldap = "";
+
+		$node->content["my_additional_field"] = array(
+			"#weight" => 5,
+			"#markup" => $result_ldap
+		);
+
+
+	} 
+
+
+
+
+
+}
+
+
+
+function ldap_course_sync_to_add($group_nid){
+		$node_group = node_load($group_nid);
+		$course_no = $node_group->field_course_number_id["und"]["0"]["value"];
+
+		
+		// COLLECTING DATA
+
+
+		// * Collecting LDAP data
+		$ldap_username = variable_get('ldap_username');
+		$ldap_password = variable_get('ldap_password');
+			
+		$ldap = new LdapSearch;
+		$ldap->connect();
+		if(!$ldap->bind($ldap_username, $ldap_password)){
+			drupal_set_message(t("Could not connect to LDAP! Please contact the administrator!"), 'error');
+			return;
+		}
+
+		$members_ldap = $ldap->getUsersForCourse($course_no);
+		//dpm($members_ldap);
+
+		$members_ldap_auth = array();
+		
+		foreach($members_ldap as $key => $value){
+			$m = $ldap->getUserforEmployeeId($key);
+
+			// Check if $m is a user of panta-rhei
+			$account_check = user_load_multiple(array(), array("mail" => ($m["email"]) ));
+			if(count($account_check)){
+				$members_ldap_auth[] = $m;
+				
+			}
+					
+		}
+		//dpm($members_ldap_auth);
+
+
+
+		// * Collecting group members
+
+		$group_members = _get_users_in_group($node_group->nid);
+		
+		$groub_members_auth = array();
+		foreach ($group_members AS $member) {
+	      $user = user_load($member->uid);
+	      $group_members_auth[] = $user;
+	  	}
+
+	  	//dpm($group_members_auth);
+
+
+
+	  	
+	  	// * Find LDAP members who are not in the group
+	  	$members_to_add = array();
+	  	foreach($members_ldap_auth as $key_ldap => $member_ldap){
+	  		$email_ldap = $member_ldap["email"];
+	  		$found = 0;
+	  		foreach($group_members_auth as $key_group => $member_group){
+	  			$email_group = $member_group->mail;
+	  			if($email_ldap == $email_group)
+	  			  	$found = 1; 
+	  		}
+	  		if($found == 0)
+	  			$members_to_add[] = $member_ldap;
+	  	}
+
+	  	return $members_to_add;
+
+}
+
+
+
+
+
+function ldap_course_sync_menu() {
+  $items['ldap-course-sync/%'] = array(
+    'title' => 'LDAP Course Synchronize',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ldap_course_sync_form', 1),
+    'access callback' => TRUE,
+    );
+  return $items;
+}
+
+
+function ldap_course_sync_form($form,&$form_submit, $variable) {
+  	
+	global $user;
+	$course_id = $variable;
+	$roles = og_get_user_roles("node", $course_id, $user->uid, true);
+	$course = node_load($course_id);
+	$course_name = $course->title;
+
+
+	if(in_array("Instructor",$roles)){
+	 	$members = ldap_course_sync_to_add($course_id);
+
+	 	$memb_options = array();
+		foreach($members as $key=>$value){
+			$memb_options[$value['username']] = $value['firstname'].' '.$value['lastname'];
+		}
+
+
+		$form['members_to_add'] = array(
+		   '#title' => t($course_name),
+		   '#type' => 'checkboxes',
+		   '#options' => $memb_options,
+		);
+		
+		$form['hid'] = array(
+			"#type" => 'hidden',
+			"#value" => $course_id,
+		);
+
+		$form['submit'] = array(
+		  '#value' => 'Add to course',
+		  '#type' => 'submit',
+		);
+		return $form;
+	}
+
+}
+
+
+function ldap_course_sync_form_submit($form, &$form_state){
+	$course_id = intval($form_state['values']['hid']);
+	$options = $form_state['values']['members_to_add'];
+	foreach($options as $key=>$value){
+		if((is_string($value)) && ($key==$value) ){
+			$selected_user = user_load_by_name($key);
+			
+			// Add user to course
+			og_group("node", $course_id, array("entity_type" => "user", "entity" => $selected_user));
+		
+			// Add Student role to user
+			$my_rids = get_role_by_name_in_gryoup("Student", "course_group");
+			foreach ($my_rids AS $r){
+				og_role_grant("node", $course_id, $selected_user->uid, $r->rid);
+			}
+
+		}
+	}
+	
+}
+
+
+
+
+?>

@@ -1,0 +1,5 @@
+name = LDAP Course Synchronization
+description = Creates a user interface for adding students to a course via LDAP
+core = 7.x
+files[] = LDAP.php
+dependencies[] = course_creation
