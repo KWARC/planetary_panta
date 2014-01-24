@@ -10,6 +10,15 @@ function ldap_jacobs_basic_form_alter( &$form, $form_state, $form_id ){
 		$form['#validate'] = array( 'user_login_name_validate', 'user_login_authenticate_validate', 'ldap_jacobs_basic_login_validate', 'user_login_final_validate' );
 	}
 
+	if ($form_id == 'user_profile_form') {
+	    $form["field_full_name"]["#access"] = FALSE; 
+	    $form["account"]["name"]["#access"] = FALSE;
+	    $form["account"]["status"]["#access"] = FALSE;
+	   	$form["account"]["roles"]["#access"] = FALSE;
+	   	$form["og_user_node"]["#access"] = FALSE;
+	   	$form['account']['mail']['#disabled'] = TRUE;
+	   
+	  }
 
 
 }

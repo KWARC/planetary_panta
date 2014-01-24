@@ -705,6 +705,51 @@ function course_creation_features_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-course_creation_form-field_course_number'
+  $field_instances['node-course_creation_form-field_course_number'] = array(
+    'bundle' => 'course_creation_form',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'The CampusNet number of the course.
+0 - if none',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_course_number',
+    'label' => 'Course Number',
+    'required' => 1,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -4,
+    ),
+  );
+
   // Exported field_instance: 'node-course_creation_form-field_email_instructor'
   $field_instances['node-course_creation_form-field_email_instructor'] = array(
     'bundle' => 'course_creation_form',
@@ -717,7 +762,7 @@ function course_creation_features_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 3,
+        'weight' => 2,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -757,7 +802,7 @@ function course_creation_features_field_default_field_instances() {
         'module' => 'node_reference',
         'settings' => array(),
         'type' => 'node_reference_default',
-        'weight' => 7,
+        'weight' => 5,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -803,7 +848,7 @@ function course_creation_features_field_default_field_instances() {
           'thousand_separator' => '',
         ),
         'type' => 'number_integer',
-        'weight' => 2,
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -844,7 +889,7 @@ function course_creation_features_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 6,
+        'weight' => 4,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -884,7 +929,7 @@ function course_creation_features_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 5,
+        'weight' => 3,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1557,6 +1602,45 @@ function course_creation_features_field_default_field_instances() {
       'settings' => array(),
       'type' => 'hidden_hidden',
       'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'node-course_group-field_course_number_id'
+  $field_instances['node-course_group-field_course_number_id'] = array(
+    'bundle' => 'course_group',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 6,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_course_number_id',
+    'label' => 'Course Number Id',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 6,
     ),
   );
 
@@ -2897,6 +2981,8 @@ function course_creation_features_field_default_field_instances() {
   t('Comment');
   t('Course Description ID');
   t('Course Materials');
+  t('Course Number');
+  t('Course Number Id');
   t('Determine if this is an OG group.');
   t('Email General Course Admin');
   t('Email Instructor');
@@ -2927,6 +3013,8 @@ function course_creation_features_field_default_field_instances() {
   t('TA Group Id');
   t('TA Username');
   t('Tags');
+  t('The CampusNet number of the course.
+0 - if none');
   t('This is the text a user may send to the group administrators.');
   t('UN General Course Admin');
   t('Upload an image to go with this article.');

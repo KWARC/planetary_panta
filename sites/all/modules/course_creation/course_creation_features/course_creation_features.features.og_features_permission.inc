@@ -182,9 +182,7 @@ function course_creation_features_og_features_default_permissions() {
 
   // Exported og permission: 'node:course_group:subscribe'
   $permissions['node:course_group:subscribe'] = array(
-    'roles' => array(
-      'non-member' => 'non-member',
-    ),
+    'roles' => array(),
   );
 
   // Exported og permission: 'node:course_group:subscribe without approval'

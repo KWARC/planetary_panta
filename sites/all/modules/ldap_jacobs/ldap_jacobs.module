@@ -183,8 +183,9 @@ function ldap_jacobs_login_validate( $form, &$form_state){
 				$user = user_save($user, $updated_user);
 
 
+				
 				// Add user to Course Group
-				$node_group_nid = 412;
+				$node_group_nid = 420;
 				og_group("node", $node_group_nid, array("entity_type" => "user", "entity" => $user));
 				$my_rids = get_role_by_name_in_gryoup("Student", "course_group");
 				foreach ($my_rids AS $r){
@@ -194,7 +195,7 @@ function ldap_jacobs_login_validate( $form, &$form_state){
 
 
 				// Add user to General Course Group
-				$node_group_nid = 410;
+				$node_group_nid = 418;
 				og_group("node", $node_group_nid, array("entity_type" => "user", "entity" => $user));
 				$my_rids = get_role_by_name_in_gryoup("Student", "general_course_group");
 				foreach ($my_rids AS $r){
@@ -204,6 +205,9 @@ function ldap_jacobs_login_validate( $form, &$form_state){
 
 
 			}
+ 	
+
+
 		}
 
 

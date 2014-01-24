@@ -37,6 +37,7 @@ function course_creation_node_presave($node){
 		$node_group->title = ($node->title)." Course";
 		$node_group->og_menu = true;
 		$node_group->field_general_course_id["und"]["0"]["value"] = $node->field_general_course["und"]["0"]["nid"];
+		$node_group->field_course_number_id["und"]["0"]["value"] = $node->field_course_number["und"]["0"]["value"];
 		node_save($node_group);
 
 		$node->field_group_id['und']['0']['value'] = $node_group->nid;
@@ -87,6 +88,7 @@ function course_creation_node_presave($node){
 
 	
 		$node_group->field_course_description_id['und']['0']['value'] = $node_description->nid;
+	
 		node_save($node_group);
 
 
@@ -1013,12 +1015,11 @@ function course_creation_form_alter(&$form, &$form_state, $form_id){
   }
 
   if ($form_id == 'course_group_node_form') {
-
     $form["title"]["#access"] = FALSE; 
     $form["group_access"]["#access"] = FALSE; 
     $form["og_views"]["#access"] = FALSE; 
     $form["body"]["#access"] = FALSE; 
-  //	$form["revision_information"]["#access"] = FALSE;
+  	$form["field_course_number_id"]["#access"] = FALSE;
   }
  
    if ($form_id == 'user_profile_form') {

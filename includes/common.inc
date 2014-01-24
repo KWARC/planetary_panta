@@ -2625,8 +2625,6 @@ function drupal_deliver_html_page($page_callback_result) {
         }
 
         drupal_set_page_content($return);
-        $page = element_info('page');
-        print drupal_render_page($page);
         break;
 
       case MENU_ACCESS_DENIED:
