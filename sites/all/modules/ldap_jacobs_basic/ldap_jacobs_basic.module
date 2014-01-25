@@ -18,6 +18,15 @@ function ldap_jacobs_basic_form_alter( &$form, $form_state, $form_id ){
 	   	$form["og_user_node"]["#access"] = FALSE;
 	   	$form['account']['mail']['#disabled'] = TRUE;
 	   
+	   dpm($form);	
+
+		$user_obj = $form["#user"];
+
+		if ($user_obj->name == $user_obj->init){
+			$form["account"]["pass"]["#disabled"] = TRUE;
+			$form["account"]["current_pass"]["#disabled"] = TRUE;
+		}
+
 	  }
 
 

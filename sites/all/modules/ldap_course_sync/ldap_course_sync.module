@@ -125,7 +125,9 @@ function ldap_course_sync_to_add($group_nid){
 			return;
 		}
 
-		$members_ldap = $ldap->getUsersForCourse($course_no);
+		$members_ldap = array();
+		if($course_no!="0")
+			$members_ldap = $ldap->getUsersForCourse($course_no);
 		//dpm($members_ldap);
 
 		$members_ldap_auth = array();
