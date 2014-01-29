@@ -68,7 +68,7 @@ function ldap_jacobs_basic_login_validate( $form, &$form_state){
 		user_external_login_register($username, 'ldap_jacobs_basic');
 		$account = user_external_load($username);
 		$form_state['uid'] = $account->uid;
-
+/*
 		$user = user_load_by_name($username);
 
 		if(!$account_initial){
@@ -87,9 +87,7 @@ function ldap_jacobs_basic_login_validate( $form, &$form_state){
 
 			$ldap_user = $ldap->getByUsername($username);
 
-		/*	$user->field_full_name["und"]["0"]["value"] = $ldap_user["firstname"]." ".$ldap_user["lastname"];
-			$user->mail = $ldap_user["email"];
-			$user->field_matric_no["und"]["0"]["value"] = $ldap_user["matric_no"];*/
+	
 
 			$up_fullname = array("und" => array("0" => array("value" => $ldap_user["firstname"]." ".$ldap_user["lastname"])));
 			$up_matricno = array("und" => array("0" => array("value" => $ldap_user["matric_no"])));
@@ -103,7 +101,7 @@ function ldap_jacobs_basic_login_validate( $form, &$form_state){
 
 
 
-		}
+		}*/
 	}
 
 }
