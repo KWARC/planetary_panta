@@ -69,6 +69,7 @@ features[field_base][] = field_image
 features[field_base][] = field_instructor_description
 features[field_base][] = field_instructor_name
 features[field_base][] = field_lecture_hours
+features[field_base][] = field_matric_no
 features[field_base][] = field_name_general_course_admin
 features[field_base][] = field_name_instructor
 features[field_base][] = field_schedule
