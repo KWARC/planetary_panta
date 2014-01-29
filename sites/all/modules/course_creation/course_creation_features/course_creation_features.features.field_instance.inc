@@ -2922,6 +2922,39 @@ function course_creation_features_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_matric_no'
+  $field_instances['user-user-field_matric_no'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_matric_no',
+    'label' => 'Matric No',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'user-user-og_user_node'
   $field_instances['user-user-og_user_node'] = array(
     'bundle' => 'user',
@@ -3003,6 +3036,7 @@ function course_creation_features_field_default_field_instances() {
   t('Instructor Description/ Office Hours/ etc. ');
   t('Instructor Name');
   t('Lecture Hours');
+  t('Matric No');
   t('Membership');
   t('Name General Course Admin');
   t('Name Instructor');

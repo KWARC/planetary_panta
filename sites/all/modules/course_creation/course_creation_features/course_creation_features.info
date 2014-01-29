@@ -149,6 +149,7 @@ features[field_instance][] = node-teacher_assistant-field_ta_username
 features[field_instance][] = node-teacher_assistant-og_group_ref
 features[field_instance][] = og_membership-og_membership_type_default-og_membership_request
 features[field_instance][] = user-user-field_full_name
+features[field_instance][] = user-user-field_matric_no
 features[field_instance][] = user-user-og_user_node
 features[filter][] = filtered_html
 features[filter][] = full_html
