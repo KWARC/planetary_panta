@@ -8,95 +8,16 @@ function ldap_course_sync_node_view($node, $view_node, $langcode){
 		if(in_array("Instructor",$roles)){
 			$node->content["my_additional_field"] = array(
 				"#weight" => 5,
-				"#markup" => "<br><br><b>Members:</b><br>".l(t("Synchronize Students with LDAP"), "ldap-course-sync/$course_id")
+				"#markup" => "<br><br><b>Members:</b><br>".l(t("ADD Students with LDAP"), "ldap-course-add/$course_id")
+			);
+
+			$node->content["my_additional_field2"] = array(
+				"#weight" => 7,
+				"#markup" => "<br><br>".l(t("REMOVE Students with LDAP"), "ldap-course-remove/$course_id")
 			);
 		}
 
 	}
-
-
-	if($node->type == "diff_members"){
-		$node_group = node_load($node->og_group_ref["und"]["0"]["target_id"]);
-		$course_no = $node_group->field_course_number_id["und"]["0"]["value"];
-
-		
-		// COLLECTING DATA
-
-
-		// * Collecting LDAP data
-		$ldap_username = variable_get('ldap_username');
-		$ldap_password = variable_get('ldap_password');
-			
-		$ldap = new LdapSearch;
-		$ldap->connect();
-		if(!$ldap->bind($ldap_username, $ldap_password)){
-			drupal_set_message(t("Could not connect to LDAP! Please contact the administrator!"), 'error');
-			return;
-		}
-
-		$members_ldap = $ldap->getUsersForCourse($course_no);
-
-/*		$members_ldap_auth = array();
-		
-		foreach($members_ldap as $key => $value){
-			$m = $ldap->getUserforEmployeeId($key);
-
-			// Check if $m is a user of panta-rhei
-			$account_check = user_load_multiple(array(), array("mail" => ($m["email"]) ));
-			if(count($account_check)){
-				$members_ldap_auth[] = $m;
-				
-			}
-					
-		}
-		//dpm($members_ldap_auth);
-
-
-
-		// * Collecting group members
-
-		$group_members = _get_users_in_group($node_group->nid);
-		
-		$groub_members_auth = array();
-		foreach ($group_members AS $member) {
-	      $user = user_load($member->uid);
-	      $group_members_auth[] = $user;
-	  	}
-
-	  	//dpm($group_members_auth);
-
-
-
-	  	
-	  	// * Find LDAP members who are not in the group
-	  	$members_to_add = array();
-	  	foreach($members_ldap_auth as $key_ldap => $member_ldap){
-	  		$email_ldap = $member_ldap["email"];
-	  		$found = 0;
-	  		foreach($group_members_auth as $key_group => $member_group){
-	  			$email_group = $member_group->mail;
-	  			if($email_ldap == $email_group)
-	  			  	$found = 1; 
-	  		}
-	  		if($found == 0)
-	  			$members_to_add[] = $member_ldap;
-	  	}
-
-	  	dpm($members_to_add);
-*/
-
-
-	  	
-	  	
-		$result_ldap = "";
-
-		$node->content["my_additional_field"] = array(
-			"#weight" => 5,
-			"#markup" => $result_ldap
-		);
-
-
-	} 
 
 
 
@@ -106,7 +27,7 @@ function ldap_course_sync_node_view($node, $view_node, $langcode){
 
 
 
-function ldap_course_sync_to_add($group_nid){
+function ldap_course_sync_to_change($group_nid){
 		$node_group = node_load($group_nid);
 		$course_no = $node_group->field_course_number_id["und"]["0"]["value"];
 
@@ -133,6 +54,7 @@ function ldap_course_sync_to_add($group_nid){
 		$members_ldap_auth = array();
 		
 		foreach($members_ldap as $key => $value){
+			
 			$m = $ldap->getUserforEmployeeId($key);
 
 			// Check if $m is a user of panta-rhei
@@ -176,7 +98,30 @@ function ldap_course_sync_to_add($group_nid){
 	  			$members_to_add[] = $member_ldap;
 	  	}
 
-	  	return $members_to_add;
+	  	
+
+	  	
+	  	// * Find group members coming from LDAP who are not in LDAP anymore
+	  	$members_to_remove = array();
+	  	foreach($group_members_auth as $key_group => $member_group){
+	  		$email_group = $member_group->mail;
+	  		$found = 0;
+	  		foreach($members_ldap_auth as $key_ldap => $member_ldap){
+	  			$email_group = $member_group->mail;
+	  			if($email_ldap == $email_group)
+	  			  	$found = 1;
+	  		}
+	  		if($found == 0){
+	  			if($member_group->name == $member_group->init)
+	  				$members_to_remove[] = $member_group;
+	  		}
+	  	}
+
+	  	return array($members_to_add, $members_to_remove);
+
+
+
+
 
 }
 
@@ -185,17 +130,25 @@ function ldap_course_sync_to_add($group_nid){
 
 
 function ldap_course_sync_menu() {
-  $items['ldap-course-sync/%'] = array(
-    'title' => 'LDAP Course Synchronize',
+  $items['ldap-course-add/%'] = array(
+    'title' => 'LDAP Course Add Members',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('ldap_course_sync_form', 1),
     'access callback' => TRUE,
     );
+  $items['ldap-course-remove/%'] = array(
+    'title' => 'LDAP Course Remove Members',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ldap_course_sync_form2', 1),
+    'access callback' => TRUE,
+    );
+
+
   return $items;
 }
 
 
-function ldap_course_sync_form($form,&$form_submit, $variable) {
+function ldap_course_sync_form($form,&$form_submit, $variable){
   	
 	global $user;
 	$course_id = $variable;
@@ -205,7 +158,9 @@ function ldap_course_sync_form($form,&$form_submit, $variable) {
 
 
 	if(in_array("Instructor",$roles)){
-	 	$members = ldap_course_sync_to_add($course_id);
+	 	$members_array = ldap_course_sync_to_change($course_id);
+	 	$members = $members_array[0];
+	 	//dpm($members_array);
 
 	 	$memb_options = array();
 		foreach($members as $key=>$value){
@@ -256,6 +211,64 @@ function ldap_course_sync_form_submit($form, &$form_state){
 }
 
 
+
+
+
+
+
+function ldap_course_sync_form2($form,&$form_submit, $variable){
+  	
+	global $user;
+	$course_id = $variable;
+	$roles = og_get_user_roles("node", $course_id, $user->uid, true);
+	$course = node_load($course_id);
+	$course_name = $course->title;
+
+
+	if(in_array("Instructor",$roles)){
+	 	$members_array = ldap_course_sync_to_change($course_id);
+	 	$members = $members_array[1];
+	 	//dpm($members_array);
+
+	 	$memb_options = array();
+		foreach($members as $key=>$value){
+			$memb_options[$value->name] = $value->field_full_name["und"]["0"]["value"];
+		}
+
+
+		$form['members_to_remove'] = array(
+		   '#title' => t($course_name),
+		   '#type' => 'checkboxes',
+		   '#options' => $memb_options,
+		);
+		
+		$form['hid'] = array(
+			"#type" => 'hidden',
+			"#value" => $course_id,
+		);
+
+		$form['submit'] = array(
+		  '#value' => 'Remove from course',
+		  '#type' => 'submit',
+		);
+		return $form;
+	}
+
+}
+
+
+function ldap_course_sync_form2_submit($form, &$form_state){
+	$course_id = intval($form_state['values']['hid']);
+	$options = $form_state['values']['members_to_remove'];
+	foreach($options as $key=>$value){
+		if((is_string($value)) && ($key==$value) ){
+			$selected_user = user_load_by_name($key);
+			// Remove user from course
+			og_ungroup("node", $course_id, 'user', $selected_user->uid);
+		}
+	}
+	
+}
 
 
 ?>

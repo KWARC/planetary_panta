@@ -17,7 +17,8 @@ function ldap_jacobs_basic_form_alter( &$form, $form_state, $form_id ){
 	   	$form["account"]["roles"]["#access"] = FALSE;
 	   	$form["og_user_node"]["#access"] = FALSE;
 	   	$form['account']['mail']['#disabled'] = TRUE;
-	   
+	    $form["field_matric_no"]["#access"] = FALSE; 
+
 		$user_obj = $form["#user"];
 
 		if ($user_obj->name == $user_obj->init){
@@ -61,13 +62,48 @@ function ldap_jacobs_basic_check_user($username, $password){
 
 function ldap_jacobs_basic_login_validate( $form, &$form_state){
 	$username = $form_state['values']['name'];
+	$account_initial = user_external_load($username);
 	$response = ldap_jacobs_basic_check_user($username, $form_state['values']['pass'] );
 	if ($response != false){
 		user_external_login_register($username, 'ldap_jacobs_basic');
 		$account = user_external_load($username);
 		$form_state['uid'] = $account->uid;
 
-		
+		$user = user_load_by_name($username);
+
+		if(!$account_initial){
+
+			// * Collecting LDAP data
+			$ldap_username = variable_get('ldap_username');
+			$ldap_password = variable_get('ldap_password');
+				
+			$ldap = new LdapSearch;
+			$ldap->connect();
+			if(!$ldap->bind($ldap_username, $ldap_password)){
+				drupal_set_message(t("Could not connect to LDAP! Please contact the administrator!"), 'error');
+				return;
+			}
+
+
+			$ldap_user = $ldap->getByUsername($username);
+
+		/*	$user->field_full_name["und"]["0"]["value"] = $ldap_user["firstname"]." ".$ldap_user["lastname"];
+			$user->mail = $ldap_user["email"];
+			$user->field_matric_no["und"]["0"]["value"] = $ldap_user["matric_no"];*/
+
+			$up_fullname = array("und" => array("0" => array("value" => $ldap_user["firstname"]." ".$ldap_user["lastname"])));
+			$up_matricno = array("und" => array("0" => array("value" => $ldap_user["matric_no"])));
+
+			$updated_user = array(
+				"field_full_name" => $up_fullname,
+				"mail" => $ldap_user["email"],
+				"field_matric_no" => $up_matricno,
+			);
+			$user = user_save($user,$updated_user);
+
+
+
+		}
 	}
 
 }
