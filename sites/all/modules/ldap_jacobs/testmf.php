@@ -9,7 +9,14 @@ function msg($prefix, $r) {
 	echo $prefix." ".$r->errmessage."\n";
 }
 
-$r->connect();
+if(!$r->connect()){
+	msg("could not connect", $r);
+	return;
+}
+else{
+	msg("connection works", $r);
+	//return;
+}
 
 if (!$r->bind($argv[1], $argv[2])) {
 	msg("could not bind", $r);
