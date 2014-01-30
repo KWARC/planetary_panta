@@ -15,6 +15,10 @@ if (!$r->bind($argv[1], $argv[2])) {
 	msg("could not bind", $r);
 	return;
 }
+else{
+	msg("Binding works", $r);
+	return;
+}
 
 
 
