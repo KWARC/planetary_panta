@@ -9,6 +9,8 @@ function msg($prefix, $r) {
 	echo $prefix." ".$r->errmessage."\n";
 }
 
+
+
 if(!$r->connect()){
 	msg("could not connect", $r);
 	return;
