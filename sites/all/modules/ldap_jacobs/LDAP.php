@@ -9,7 +9,7 @@ define("LDAP_USER","sys-csfaculty");
 class LdapSearch
 {
 	//var $host = "jacobs.jacobs-university.de";
-	var $host = "jacobs.jacobs-university.de";
+	var $host = "sad01.jacobs.jacobs-university.de";
 	var $ds;
 	var $errmessage;
 	var $stat_connect = FALSE;
@@ -106,7 +106,7 @@ class LdapSearch
 	function bind($username = LDAP_USER, $password = '')
 	{
 		ldap_set_option(NULL, LDAP_OPT_DEBUG_LEVEL, 7);
-		
+
 		if (!$this->stat_connect) {
 			if (!$this->connect())
 					return FALSE;
