@@ -88,7 +88,9 @@ class LdapSearch
 	function connect()
 	{
 		// Connecting to LDAP
-		$this->ds = @ldap_connect($this->host);
+		//$this->ds = @ldap_connect($this->host);
+		$this->ds = ldap_connect($this->host);
+        
         
 		if (!$this->ds) {
 			$this->errmessage = "Cannot connect to host.";
@@ -120,7 +122,8 @@ class LdapSearch
 
 	    
 	    // bind to ldap server
-		$ldapbind = @ldap_bind($this->ds, $ldaprdn, $p);
+		//$ldapbind = @ldap_bind($this->ds, $ldaprdn, $p);
+		$ldapbind = ldap_bind($this->ds, $ldaprdn, $p);
 
 		// verify binding
 	    if (!$ldapbind) {
