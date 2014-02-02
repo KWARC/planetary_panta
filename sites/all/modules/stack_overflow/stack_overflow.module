@@ -304,7 +304,7 @@ function stack_overflow_node_insert($node){
           $params["course_name"] = node_load($node->og_group_ref["und"]["0"]["target_id"])->title;
           $params["link"] = l(t("here"),"node/".$node->nid);
           $params["question"] = $node->title;
-          $email_from = "admin@panta.kwarc.info";
+          $email_from = "noreply@panta.kwarc.info";
 
      
 

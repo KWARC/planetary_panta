@@ -524,6 +524,48 @@ function course_creation_features_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-announcement_entry-field_send_email'
+  $field_instances['node-announcement_entry-field_send_email'] = array(
+    'bundle' => 'announcement_entry',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'default_value_function' => '',
+    'default_value_php' => '',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_send_email',
+    'label' => 'Send email',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => -3,
+    ),
+  );
+
   // Exported field_instance: 'node-article-body'
   $field_instances['node-article-body'] = array(
     'bundle' => 'article',
@@ -3042,6 +3084,7 @@ function course_creation_features_field_default_field_instances() {
   t('Name Instructor');
   t('Request message');
   t('Schedule');
+  t('Send email');
   t('Summary');
   t('TA Description');
   t('TA Group Id');

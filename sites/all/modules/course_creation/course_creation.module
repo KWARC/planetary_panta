@@ -7,6 +7,42 @@
  
 
 
+
+
+/*
+  This will configure the e-mail that will be sent to all the members of the website
+*/
+
+function course_creation_mail($key, &$message, $params){
+    $language = $message["language"];
+    switch($key){
+
+      case "key":
+        $message["subject"] = t("PantaRhei Announcement: ".$params["title"]);
+        $message['body'][] = 
+            'Dear '.$params["name"].',
+
+'.$params["content"].'
+
+            
+You can comment '.$params['link'].'.
+
+
+PantaRhei Admin
+            '
+
+      
+      ;
+      break;
+
+    }
+}
+
+
+
+
+
+
  /*
 **Implements hook_node_presave() .
 **/
@@ -603,8 +639,58 @@ function course_creation_node_presave($node){
 	}
 
 
+	 
 
 
+
+
+
+
+}
+
+/* This will send notifications to all members
+ */
+
+
+function course_creation_node_insert($node){
+	if($node->type == "announcement_entry" && $node->field_send_email['und']['0']['value'] == 1) {
+    	
+    	$query = db_select('users', 'u');
+	    $query->fields('u', array('name'));
+	    $result = $query->execute();
+	    $members = array();
+	    while($record = $result->fetchAssoc()) {
+	        $members[] = $record['name'];
+			
+	    }
+
+	    foreach ($members AS $member) {
+	    	$user = user_load_by_name($member);
+	     
+	      
+
+	      
+
+	      	if ($user)
+	        	if($user->status == "1"){
+
+		          $to = $user->mail;
+		          
+		          if($user->field_full_name)
+		         	 $params["name"] = $user->field_full_name["und"]["0"]["value"];
+		         	else
+		         	 $params["name"] = $user->name;	
+		          $params["link"] = l(t("here"),"node/".$node->nid);
+		          $params["title"] = $node->title;
+		          $params["content"] = $node->body["und"]["0"]["value"];
+		          $email_from = "noreply@panta.kwarc.info";
+
+	          	  $sent = drupal_mail("course_creation", "key", $to, language_default(), $params, $email_from, TRUE);
+
+	        }
+
+	     }
+  }
 
 
 }
