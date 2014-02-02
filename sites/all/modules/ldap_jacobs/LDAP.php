@@ -105,7 +105,7 @@ class LdapSearch
 	
 	function bind($username = LDAP_USER, $password = '')
 	{
-		ldap_set_option(NULL, LDAP_OPT_DEBUG_LEVEL, 7);
+		//ldap_set_option(NULL, LDAP_OPT_DEBUG_LEVEL, 7);
 
 		if (!$this->stat_connect) {
 			if (!$this->connect())
