@@ -8,7 +8,8 @@ define("LDAP_USER","sys-csfaculty");
 
 class LdapSearch
 {
-	var $host = "jacobs.jacobs-university.de";
+	//var $host = "jacobs.jacobs-university.de";
+	var $host = "sad01.jacobs.jacobs-university.de";
 	var $ds;
 	var $errmessage;
 	var $stat_connect = FALSE;
