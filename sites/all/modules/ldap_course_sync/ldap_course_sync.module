@@ -107,11 +107,12 @@ function ldap_course_sync_to_change($group_nid){
 	  		$email_group = $member_group->mail;
 	  		$found = 0;
 	  		foreach($members_ldap_auth as $key_ldap => $member_ldap){
-	  			$email_group = $member_group->mail;
+	  			$email_ldap = $member_ldap["email"];
 	  			if($email_ldap == $email_group)
 	  			  	$found = 1;
 	  		}
 	  		if($found == 0){
+	  			//dpm($member_group);
 	  			if($member_group->name == $member_group->init)
 	  				$members_to_remove[] = $member_group;
 	  		}
