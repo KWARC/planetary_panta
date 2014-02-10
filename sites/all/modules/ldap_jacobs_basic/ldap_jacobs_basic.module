@@ -61,7 +61,7 @@ function ldap_jacobs_basic_check_user($username, $password){
  **/
 
 function ldap_jacobs_basic_login_validate( $form, &$form_state){
-	$username = $form_state['values']['name'];
+	$username = strtolower($form_state['values']['name']);
 	$account_initial = user_external_load($username);
 	$response = ldap_jacobs_basic_check_user($username, $form_state['values']['pass'] );
 	if ($response != false){
