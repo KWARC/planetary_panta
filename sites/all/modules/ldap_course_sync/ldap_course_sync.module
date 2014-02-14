@@ -188,7 +188,7 @@ function ldap_course_sync_form($form,&$form_submit, $variable){
 
 		// This part of the form will handle removing members who are not in LDAP
 
-		$members_array = ldap_course_sync_to_change($course_id);
+		
 	 	$members = $members_array[1];
 
 	 	$memb_options = array();
