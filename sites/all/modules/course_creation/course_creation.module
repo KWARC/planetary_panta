@@ -1032,6 +1032,24 @@ function course_creation_node_view($node, $view_mode, $langcode) {
 
   }   
 
+
+
+
+  else if($node->type == "course_group"){
+  		global $user;
+		$course_id = $node->nid;
+		$roles = og_get_user_roles("node", $course_id, $user->uid, true);
+		if(in_array("Instructor",$roles)){
+			$node->content["my_additional_field2"] = array(
+				"#weight" => 7,
+				"#markup" => "<br>".l(t("Pending Members"), "pending/$course_id")
+			);
+
+
+		}	
+  }
+
+
 }
 
 
@@ -1120,6 +1138,140 @@ function course_creation_form_alter(&$form, &$form_state, $form_id){
 
 
 
+function course_creation_get_pending_members($group_id){
+	$group_members = _get_users_in_group($group_id);
+	$users = array();
+	foreach ($group_members AS $member) {
+      $m = og_get_membership("node", $group_id, "user", $member->uid);
+    //  dpm($m);
+      if($m->state == "2"){
+	      $pack_pending = array();
+
+	      $u = user_load($member->uid);
+
+	      $pack_pending["username"] = $u->name;	
+
+	      if(count($m->og_membership_request))
+	      	$pack_pending["og_membership_request"] = $m->og_membership_request["und"]["0"]["value"];
+	      else
+	      	$pack_pending["og_membership_request"] = "";
+
+	      
+	      $pack_pending["name"] = $u->field_full_name["und"]["0"]["value"];
+	      
+
+	      $users[] = $pack_pending;
+      }
+
+  	}
+  	return $users;
+
+}
+
+
+function course_creation_menu() {
+  $items['pending/%'] = array(
+    'title' => 'Pending Members',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('course_creation_form', 1),
+    'access callback' => TRUE,
+    );
+ 
+
+  return $items;
+}
+
+
+
+function course_creation_form($form,&$form_submit, $variable){
+  	
+	global $user;
+	$course_id = $variable;
+	$roles = og_get_user_roles("node", $course_id, $user->uid, true);
+	$course = node_load($course_id);
+	$course_name = $course->title;
+
+
+	if(in_array("Instructor",$roles)){
+
+		// This part of the form will handle adding pending members 
+
+	 	$members = course_creation_get_pending_members($course_id);
+
+
+	 	$memb_options = array();
+		foreach($members as $member){
+			$memb_options[$member["username"]] = "<b>".$member["name"]."</b> <br>Message:  ''".$member["og_membership_request"]."''<br>";
+		}
+
+
+		$form['members_to_add'] = array(
+		   '#title' => t("Add students to ".$course_name),
+		   '#type' => 'checkboxes',
+		   '#options' => $memb_options,
+		);
+		
+		$form['hid'] = array(
+			"#type" => 'hidden',
+			"#value" => $course_id,
+		);
+
+		$form['submit_add'] = array(
+		  '#value' => 'Add',
+		  '#type' => 'submit',
+		);
+
+		return $form;
+	}
+
+}
+
+
+
+
+function course_creation_form_submit($form, &$form_state){
+	$course_id = intval($form_state['values']['hid']);
+	//dpm($form_state);
+	// ADD case
+	if($form_state["values"]["op"] == "Add"){
+
+		$options = $form_state['values']['members_to_add'];
+		
+		foreach($options as $key=>$value){
+			if((is_string($value)) && ($key==$value) ){
+				$selected_user = user_load_by_name($key);
+				//dpm($selected_user);
+
+				// Add user to course
+				og_group("node", $course_id, array("entity_type" => "user", "entity" => $selected_user));
+			
+				// Add Student role to user
+				$my_rids = get_role_by_name_in_gryoup("Student", "course_group");
+				foreach ($my_rids AS $r){
+					og_role_grant("node", $course_id, $selected_user->uid, $r->rid);
+				}
+
+			}
+		}
+
+
+	}
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
 
 function get_role_by_name($name) {
   $roles = user_roles();
@@ -1135,3 +1287,4 @@ function get_role_by_name_in_gryoup($name, $gr_bundle){
         ->fields('r', array('rid'));
       return $query->execute();
 }
+

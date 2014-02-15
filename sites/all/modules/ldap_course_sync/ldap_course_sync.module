@@ -110,11 +110,11 @@ function ldap_course_sync_to_change($group_nid){
 	  		}
 	  		if($found == 0){
 	  			//dpm($member_group);
-	  			if($member_group->name == $member_group->init){
+	  		//	if($member_group->name == $member_group->init){
 	  				$roles = og_get_user_roles("node", $group_nid, $member_group->uid, true);
 	  				if((!in_array("Instructor",$roles)) && (!in_array("TA", $roles)))
 	  					$members_to_remove[] = $member_group;
-	  			}
+	  			//}
 	  		}
 	  	}
 
