@@ -62,7 +62,7 @@ function ldap_course_sync_to_change($group_nid){
 			}
 					
 		}
-		//dpm($members_ldap_auth);
+		dpm($members_ldap_auth);
 
 
 
