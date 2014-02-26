@@ -1258,6 +1258,7 @@ function course_creation_form($form,&$form_submit, $variable){
 
 		$form['members_to_add'] = array(
 		   '#title' => t("Add students to ".$course_name),
+		   '#description' => "These students have requested membership to your course. To accept them, check the respective boxes and press Add.",
 		   '#type' => 'checkboxes',
 		   '#options' => $memb_options,
 		);
@@ -1344,6 +1345,7 @@ function course_creation_form2($form,&$form_submit, $variable){
 
 		$form['tas_to_remove'] = array(
 		   '#title' => t("Remove TAs from ".$course_name),
+		   '#description' => "These students are TAs for your course. You can remove them by checking the respective boxes and then pressing Remove TA.",
 		   '#type' => 'checkboxes',
 		   '#options' => $tas_to_remove,
 		   '#weight' => 1,
@@ -1363,6 +1365,7 @@ function course_creation_form2($form,&$form_submit, $variable){
 
 		$form['ta_to_add'] = array(
 		   '#title' => t("<br><br>Add TA to ".$course_name),
+		   '#description' => "Please type in the username of the TA.",
 		   '#type' => 'textfield',
 		   '#size' => 30,
            '#maxlength' => 60,

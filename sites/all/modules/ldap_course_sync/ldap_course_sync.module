@@ -186,6 +186,7 @@ function ldap_course_sync_form($form,&$form_submit, $variable){
 
 		$form['members_to_add'] = array(
 		   '#title' => t("Add students to ".$course_name),
+		   '#description' => "These students are registered to your course according to the Jacobs LDAP database and are not part of your group yet. You can add them by checking the respective boxes and pressing the Add button",
 		   '#type' => 'checkboxes',
 		   '#options' => $memb_options,
 		   '#weight' => 9,
@@ -218,7 +219,8 @@ function ldap_course_sync_form($form,&$form_submit, $variable){
 
 
 		$form['members_to_remove'] = array(
-		   '#title' => t("Remove students from ".$course_name),
+		   '#title' => "<br><br>".t("Remove students from ".$course_name),
+		   '#description' => "These students are NOT registered to your course anymore. You can remove them by checking the respective boxes and pressing the Remove button",
 		   '#type' => 'checkboxes',
 		   '#options' => $memb_options,
 		   '#weight' => 13,
