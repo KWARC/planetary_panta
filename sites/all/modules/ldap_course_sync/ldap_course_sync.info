@@ -3,3 +3,5 @@ description = Creates a user interface for adding students to a course via LDAP
 core = 7.x
 files[] = LDAP.php
 dependencies[] = course_creation
+scripts[] = ldap_course_sync.js
+ 

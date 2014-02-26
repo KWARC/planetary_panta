@@ -211,7 +211,7 @@ function stack_overflow_node_view_alter(&$build) {
     /**
      * Get all users of a group
      */
-    function _get_users_in_group($gid) {
+    function stack_overflow_get_users_in_group($gid) {
       $query = db_select('users', 'u');
      
       $query
@@ -284,7 +284,7 @@ function stack_overflow_node_insert($node){
 
   if($node->type == "question" && $node->field_notify_group['und']['0']['value'] == 1) {
     $group_id = $node->og_group_ref['und']['0']['target_id'];
-    $group_members = _get_users_in_group($node->og_group_ref['und']['0']['target_id']);
+    $group_members = stack_overflow_get_users_in_group($node->og_group_ref['und']['0']['target_id']);
 
      foreach ($group_members AS $member) {
       $user = user_load($member->uid);
