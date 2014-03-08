@@ -39,27 +39,6 @@ function course_creation_features_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_assignments'
-  $field_bases['field_assignments'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_assignments',
-    'foreign keys' => array(),
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'tablefield',
-    'settings' => array(
-      'cell_processing' => 1,
-      'export' => 1,
-      'lock_values' => 1,
-      'restrict_rebuild' => 0,
-    ),
-    'translatable' => 0,
-    'type' => 'tablefield',
-  );
-
   // Exported field_base: 'field_course_description_id'
   $field_bases['field_course_description_id'] = array(
     'active' => 1,
@@ -74,33 +53,6 @@ function course_creation_features_field_default_field_bases() {
     'settings' => array(),
     'translatable' => 0,
     'type' => 'number_integer',
-  );
-
-  // Exported field_base: 'field_course_materials'
-  $field_bases['field_course_materials'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_course_materials',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(),
-    'translatable' => 0,
-    'type' => 'text_with_summary',
   );
 
   // Exported field_base: 'field_course_number'
@@ -251,33 +203,6 @@ function course_creation_features_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_exams'
-  $field_bases['field_exams'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_exams',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(),
-    'translatable' => 0,
-    'type' => 'text_with_summary',
-  );
-
   // Exported field_base: 'field_full_name'
   $field_bases['field_full_name'] = array(
     'active' => 1,
@@ -384,33 +309,6 @@ function course_creation_features_field_default_field_bases() {
     'settings' => array(),
     'translatable' => 0,
     'type' => 'number_integer',
-  );
-
-  // Exported field_base: 'field_grading'
-  $field_bases['field_grading'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_grading',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(),
-    'translatable' => 0,
-    'type' => 'text_with_summary',
   );
 
   // Exported field_base: 'field_group_id'
@@ -541,33 +439,6 @@ function course_creation_features_field_default_field_bases() {
     'type' => 'node_reference',
   );
 
-  // Exported field_base: 'field_lecture_hours'
-  $field_bases['field_lecture_hours'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_lecture_hours',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(),
-    'translatable' => 0,
-    'type' => 'text_with_summary',
-  );
-
   // Exported field_base: 'field_matric_no'
   $field_bases['field_matric_no'] = array(
     'active' => 1,
@@ -658,25 +529,31 @@ function course_creation_features_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_schedule'
-  $field_bases['field_schedule'] = array(
+  // Exported field_base: 'field_resources'
+  $field_bases['field_resources'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_schedule',
-    'foreign keys' => array(),
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'tablefield',
-    'settings' => array(
-      'cell_processing' => 1,
-      'export' => 1,
-      'lock_values' => 1,
-      'restrict_rebuild' => 0,
+    'field_name' => 'field_resources',
+    'foreign keys' => array(
+      'format' => array(
+        'columns' => array(
+          'format' => 'format',
+        ),
+        'table' => 'filter_format',
+      ),
     ),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(),
     'translatable' => 0,
-    'type' => 'tablefield',
+    'type' => 'text_long',
   );
 
   // Exported field_base: 'field_send_email'

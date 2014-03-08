@@ -1454,6 +1454,17 @@ function course_creation_form2_submit($form, &$form_state){
 
 
 
+function course_creation_username_alter(&$name, $account) {
+/* load the full user object, since $account not always provide all informations */  
+$user = user_load($account->uid);
+/* 
+field_extract_value(): function provided by field_extract module (thanks adaddinsane!)
+ */
+  if (!empty($user->field_full_name)) {
+    $name = $user->field_full_name["und"]["0"]["value"];
+  }
+}
+
 
 
 

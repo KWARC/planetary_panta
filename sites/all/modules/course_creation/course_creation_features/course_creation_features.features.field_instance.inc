@@ -997,264 +997,6 @@ function course_creation_features_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_description-field_assignments'
-  $field_instances['node-course_description-field_assignments'] = array(
-    'bundle' => 'course_description',
-    'default_value' => array(
-      0 => array(
-        'tablefield' => array(
-          'cell_0_0' => 'Number:',
-          'cell_0_1' => 'Link:',
-          'cell_0_2' => 'Given:',
-          'cell_0_3' => 'Due:',
-          'cell_1_0' => '',
-          'cell_1_1' => '',
-          'cell_1_2' => '',
-          'cell_1_3' => '',
-          'cell_2_0' => '',
-          'cell_2_1' => '',
-          'cell_2_2' => '',
-          'cell_2_3' => '',
-          'cell_3_0' => '',
-          'cell_3_1' => '',
-          'cell_3_2' => '',
-          'cell_3_3' => '',
-          'cell_4_0' => '',
-          'cell_4_1' => '',
-          'cell_4_2' => '',
-          'cell_4_3' => '',
-          'cell_5_0' => '',
-          'cell_5_1' => '',
-          'cell_5_2' => '',
-          'cell_5_3' => '',
-          'cell_6_0' => '',
-          'cell_6_1' => '',
-          'cell_6_2' => '',
-          'cell_6_3' => '',
-          'cell_7_0' => '',
-          'cell_7_1' => '',
-          'cell_7_2' => '',
-          'cell_7_3' => '',
-          'cell_8_0' => '',
-          'cell_8_1' => '',
-          'cell_8_2' => '',
-          'cell_8_3' => '',
-          'cell_9_0' => '',
-          'cell_9_1' => '',
-          'cell_9_2' => '',
-          'cell_9_3' => '',
-          'cell_10_0' => '',
-          'cell_10_1' => '',
-          'cell_10_2' => '',
-          'cell_10_3' => '',
-          'cell_11_0' => '',
-          'cell_11_1' => '',
-          'cell_11_2' => '',
-          'cell_11_3' => '',
-          'cell_12_0' => '',
-          'cell_12_1' => '',
-          'cell_12_2' => '',
-          'cell_12_3' => '',
-          'cell_13_0' => '',
-          'cell_13_1' => '',
-          'cell_13_2' => '',
-          'cell_13_3' => '',
-          'cell_14_0' => '',
-          'cell_14_1' => '',
-          'cell_14_2' => '',
-          'cell_14_3' => '',
-          'cell_15_0' => '',
-          'cell_15_1' => '',
-          'cell_15_2' => '',
-          'cell_15_3' => '',
-          'cell_16_0' => '',
-          'cell_16_1' => '',
-          'cell_16_2' => '',
-          'cell_16_3' => '',
-          'cell_17_0' => '',
-          'cell_17_1' => '',
-          'cell_17_2' => '',
-          'cell_17_3' => '',
-          'cell_18_0' => '',
-          'cell_18_1' => '',
-          'cell_18_2' => '',
-          'cell_18_3' => '',
-          'cell_19_0' => '',
-          'cell_19_1' => '',
-          'cell_19_2' => '',
-          'cell_19_3' => '',
-          'import' => array(
-            'rebuild_field_assignments_0' => 'Upload CSV',
-            'tablefield_csv_field_assignments_0' => '',
-          ),
-          'rebuild' => array(
-            'count_cols' => 4,
-            'count_rows' => 20,
-            'rebuild' => 'Rebuild Table',
-          ),
-        ),
-        'format' => 'plain_text',
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'tablefield',
-        'settings' => array(),
-        'type' => 'default',
-        'weight' => 6,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_assignments',
-    'label' => 'Assignments',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'tablefield',
-      'settings' => array(),
-      'type' => 'tablefield',
-      'weight' => 8,
-    ),
-  );
-
-  // Exported field_instance: 'node-course_description-field_course_materials'
-  $field_instances['node-course_description-field_course_materials'] = array(
-    'bundle' => 'course_description',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 3,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_course_materials',
-    'label' => 'Course Materials',
-    'required' => 0,
-    'settings' => array(
-      'display_summary' => 0,
-      'text_processing' => 1,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 20,
-        'summary_rows' => 5,
-      ),
-      'type' => 'text_textarea_with_summary',
-      'weight' => 5,
-    ),
-  );
-
-  // Exported field_instance: 'node-course_description-field_exams'
-  $field_instances['node-course_description-field_exams'] = array(
-    'bundle' => 'course_description',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 7,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_exams',
-    'label' => 'Exams',
-    'required' => 0,
-    'settings' => array(
-      'display_summary' => 0,
-      'text_processing' => 1,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 20,
-        'summary_rows' => 5,
-      ),
-      'type' => 'text_textarea_with_summary',
-      'weight' => 9,
-    ),
-  );
-
-  // Exported field_instance: 'node-course_description-field_grading'
-  $field_instances['node-course_description-field_grading'] = array(
-    'bundle' => 'course_description',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 5,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_grading',
-    'label' => 'Grading',
-    'required' => 0,
-    'settings' => array(
-      'display_summary' => 0,
-      'text_processing' => 1,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 20,
-        'summary_rows' => 5,
-      ),
-      'type' => 'text_textarea_with_summary',
-      'weight' => 7,
-    ),
-  );
-
   // Exported field_instance: 'node-course_description-field_instructor_name'
   $field_instances['node-course_description-field_instructor_name'] = array(
     'bundle' => 'course_description',
@@ -1292,8 +1034,8 @@ function course_creation_features_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-course_description-field_lecture_hours'
-  $field_instances['node-course_description-field_lecture_hours'] = array(
+  // Exported field_instance: 'node-course_description-field_resources'
+  $field_instances['node-course_description-field_resources'] = array(
     'bundle' => 'course_description',
     'default_value' => NULL,
     'deleted' => 0,
@@ -1304,7 +1046,7 @@ function course_creation_features_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 1,
+        'weight' => 9,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1314,11 +1056,10 @@ function course_creation_features_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_lecture_hours',
-    'label' => 'Lecture Hours',
+    'field_name' => 'field_resources',
+    'label' => 'Resources',
     'required' => 0,
     'settings' => array(
-      'display_summary' => 0,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -1326,143 +1067,10 @@ function course_creation_features_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
-        'rows' => 20,
-        'summary_rows' => 5,
+        'rows' => 5,
       ),
-      'type' => 'text_textarea_with_summary',
-      'weight' => 3,
-    ),
-  );
-
-  // Exported field_instance: 'node-course_description-field_schedule'
-  $field_instances['node-course_description-field_schedule'] = array(
-    'bundle' => 'course_description',
-    'default_value' => array(
-      0 => array(
-        'tablefield' => array(
-          'cell_0_0' => 'Date:',
-          'cell_0_1' => 'Topic:',
-          'cell_1_0' => '',
-          'cell_1_1' => '',
-          'cell_2_0' => '',
-          'cell_2_1' => '',
-          'cell_3_0' => '',
-          'cell_3_1' => '',
-          'cell_4_0' => '',
-          'cell_4_1' => '',
-          'cell_5_0' => '',
-          'cell_5_1' => '',
-          'cell_6_0' => '',
-          'cell_6_1' => '',
-          'cell_7_0' => '',
-          'cell_7_1' => '',
-          'cell_8_0' => '',
-          'cell_8_1' => '',
-          'cell_9_0' => '',
-          'cell_9_1' => '',
-          'cell_10_0' => '',
-          'cell_10_1' => '',
-          'cell_11_0' => '',
-          'cell_11_1' => '',
-          'cell_12_0' => '',
-          'cell_12_1' => '',
-          'cell_13_0' => '',
-          'cell_13_1' => '',
-          'cell_14_0' => '',
-          'cell_14_1' => '',
-          'cell_15_0' => '',
-          'cell_15_1' => '',
-          'cell_16_0' => '',
-          'cell_16_1' => '',
-          'cell_17_0' => '',
-          'cell_17_1' => '',
-          'cell_18_0' => '',
-          'cell_18_1' => '',
-          'cell_19_0' => '',
-          'cell_19_1' => '',
-          'cell_20_0' => '',
-          'cell_20_1' => '',
-          'cell_21_0' => '',
-          'cell_21_1' => '',
-          'cell_22_0' => '',
-          'cell_22_1' => '',
-          'cell_23_0' => '',
-          'cell_23_1' => '',
-          'cell_24_0' => '',
-          'cell_24_1' => '',
-          'cell_25_0' => '',
-          'cell_25_1' => '',
-          'cell_26_0' => '',
-          'cell_26_1' => '',
-          'cell_27_0' => '',
-          'cell_27_1' => '',
-          'cell_28_0' => '',
-          'cell_28_1' => '',
-          'cell_29_0' => '',
-          'cell_29_1' => '',
-          'cell_30_0' => '',
-          'cell_30_1' => '',
-          'cell_31_0' => '',
-          'cell_31_1' => '',
-          'cell_32_0' => '',
-          'cell_32_1' => '',
-          'cell_33_0' => '',
-          'cell_33_1' => '',
-          'cell_34_0' => '',
-          'cell_34_1' => '',
-          'cell_35_0' => '',
-          'cell_35_1' => '',
-          'cell_36_0' => '',
-          'cell_36_1' => '',
-          'cell_37_0' => '',
-          'cell_37_1' => '',
-          'cell_38_0' => '',
-          'cell_38_1' => '',
-          'cell_39_0' => '',
-          'cell_39_1' => '',
-          'import' => array(
-            'rebuild_field_schedule_0' => 'Upload CSV',
-            'tablefield_csv_field_schedule_0' => '',
-          ),
-          'rebuild' => array(
-            'count_cols' => 2,
-            'count_rows' => 40,
-            'rebuild' => 'Rebuild Table',
-          ),
-        ),
-        'format' => 'plain_text',
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'tablefield',
-        'settings' => array(),
-        'type' => 'default',
-        'weight' => 4,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_schedule',
-    'label' => 'Schedule',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'tablefield',
-      'settings' => array(),
-      'type' => 'tablefield',
-      'weight' => 6,
+      'type' => 'text_textarea',
+      'weight' => 8,
     ),
   );
 
@@ -3051,11 +2659,9 @@ function course_creation_features_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Assignments');
   t('Body');
   t('Comment');
   t('Course Description ID');
-  t('Course Materials');
   t('Course Number');
   t('Course Number Id');
   t('Determine if this is an OG group.');
@@ -3063,11 +2669,9 @@ function course_creation_features_field_default_field_instances() {
   t('Email Instructor');
   t('Email TA');
   t('Enter a comma-separated list of words to describe your content.');
-  t('Exams');
   t('Full Name');
   t('General Course');
   t('General Course ID');
-  t('Grading');
   t('Group');
   t('Group Id');
   t('Group membership');
@@ -3077,13 +2681,12 @@ function course_creation_features_field_default_field_instances() {
   t('Image');
   t('Instructor Description/ Office Hours/ etc. ');
   t('Instructor Name');
-  t('Lecture Hours');
   t('Matric No');
   t('Membership');
   t('Name General Course Admin');
   t('Name Instructor');
   t('Request message');
-  t('Schedule');
+  t('Resources');
   t('Send email');
   t('Summary');
   t('TA Description');

@@ -208,6 +208,7 @@ function course_creation_features_og_features_default_permissions() {
   $permissions['node:course_group:update any course_description content'] = array(
     'roles' => array(
       'Instructor' => 'Instructor',
+      'TA' => 'TA',
     ),
   );
 
