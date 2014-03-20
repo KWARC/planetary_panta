@@ -31,8 +31,8 @@
   $h = "";
   global $user;
   
-  if(in_array("administrator", $user->roles))
-    $header .= l(t("Add Documentation"), "node/add/documentation-entry");
+  if(in_array("administrator", $user->roles) || in_array("Content Admin", $user->roles))
+    $header .= l(t("Add Help entry"), "node/add/help-entry");
 
   print $h;
   

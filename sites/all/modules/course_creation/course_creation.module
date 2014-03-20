@@ -756,7 +756,7 @@ function course_creation_block_view($delta = '') {
 
     case 'config_footer':
     	//$block['subject'] = t('Configurable Footer');
-    	$block['content'] = "<h1>"."<strong>".l(t('Post Issue'), 'https://github.com/fierarufmihai/planetary_panta/issues')."</strong>"."&nbsp &nbsp &nbsp &nbsp"."<strong>".l(t('Announcements'), 'announcements')."</strong>"."<strong>"."&nbsp &nbsp &nbsp &nbsp".l(t('Documentation'), 'documentation')."</strong>"."</h1>";
+    	$block['content'] = "<h1>"."<strong>".l(t('Post Issue'), 'https://github.com/fierarufmihai/planetary_panta/issues')."</strong>"."&nbsp &nbsp &nbsp &nbsp"."<strong>".l(t('Announcements'), 'announcements')."</strong>"."<strong>"."&nbsp &nbsp &nbsp &nbsp".l(t('Help'), 'help')."</strong>"."</h1>";
   }
 
   return $block;

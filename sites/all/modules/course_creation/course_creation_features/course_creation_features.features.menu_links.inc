@@ -38,9 +38,28 @@ function course_creation_features_menu_default_menu_links() {
     'expanded' => 0,
     'weight' => -49,
   );
+  // Exported menu link: main-menu:help
+  $menu_links['main-menu:help'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => 'help',
+    'router_path' => 'help',
+    'link_title' => 'Help',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => 0,
+    'external' => 0,
+    'has_children' => 0,
+    'expanded' => 0,
+    'weight' => 0,
+  );
   // Translatables
   // Included for use with string extractors like potx.
   t('Courses');
+  t('Help');
   t('Home');
 
 

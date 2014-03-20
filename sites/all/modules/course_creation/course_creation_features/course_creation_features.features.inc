@@ -48,14 +48,6 @@ function course_creation_features_node_info() {
       'title_label' => t('Title'),
       'help' => '',
     ),
-    'documentation_entry' => array(
-      'name' => t('Documentation Entry'),
-      'base' => 'node_content',
-      'description' => '',
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
     'general_course_creation_form' => array(
       'name' => t('General Course Creation Form'),
       'base' => 'node_content',
@@ -66,6 +58,14 @@ function course_creation_features_node_info() {
     ),
     'general_course_group' => array(
       'name' => t('General Course Group'),
+      'base' => 'node_content',
+      'description' => '',
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
+    'help_entry' => array(
+      'name' => t('Help Entry'),
       'base' => 'node_content',
       'description' => '',
       'has_title' => '1',

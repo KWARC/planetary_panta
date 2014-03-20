@@ -397,6 +397,7 @@ function course_creation_features_user_default_permissions() {
   $permissions['administer url aliases'] = array(
     'name' => 'administer url aliases',
     'roles' => array(
+      'Content Admin' => 'Content Admin',
       'administrator' => 'administrator',
     ),
     'module' => 'path',
@@ -474,6 +475,15 @@ function course_creation_features_user_default_permissions() {
     'module' => 'tablefield',
   );
 
+  // Exported permission: 'create announcement_entry content'.
+  $permissions['create announcement_entry content'] = array(
+    'name' => 'create announcement_entry content',
+    'roles' => array(
+      'Content Admin' => 'Content Admin',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'create article content'.
   $permissions['create article content'] = array(
     'name' => 'create article content',
@@ -529,6 +539,15 @@ function course_creation_features_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'create help_entry content'.
+  $permissions['create help_entry content'] = array(
+    'name' => 'create help_entry content',
+    'roles' => array(
+      'Content Admin' => 'Content Admin',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'create instructor_general_info content'.
   $permissions['create instructor_general_info content'] = array(
     'name' => 'create instructor_general_info content',
@@ -572,6 +591,7 @@ function course_creation_features_user_default_permissions() {
   $permissions['create url aliases'] = array(
     'name' => 'create url aliases',
     'roles' => array(
+      'Content Admin' => 'Content Admin',
       'administrator' => 'administrator',
     ),
     'module' => 'path',
@@ -584,6 +604,13 @@ function course_creation_features_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'shortcut',
+  );
+
+  // Exported permission: 'delete any announcement_entry content'.
+  $permissions['delete any announcement_entry content'] = array(
+    'name' => 'delete any announcement_entry content',
+    'roles' => array(),
+    'module' => 'node',
   );
 
   // Exported permission: 'delete any article content'.
@@ -640,6 +667,13 @@ function course_creation_features_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'delete any help_entry content'.
+  $permissions['delete any help_entry content'] = array(
+    'name' => 'delete any help_entry content',
+    'roles' => array(),
+    'module' => 'node',
+  );
+
   // Exported permission: 'delete any instructor_general_info content'.
   $permissions['delete any instructor_general_info content'] = array(
     'name' => 'delete any instructor_general_info content',
@@ -678,6 +712,15 @@ function course_creation_features_user_default_permissions() {
   $permissions['delete any teacher_assistant content'] = array(
     'name' => 'delete any teacher_assistant content',
     'roles' => array(),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'delete own announcement_entry content'.
+  $permissions['delete own announcement_entry content'] = array(
+    'name' => 'delete own announcement_entry content',
+    'roles' => array(
+      'Content Admin' => 'Content Admin',
+    ),
     'module' => 'node',
   );
 
@@ -731,6 +774,15 @@ function course_creation_features_user_default_permissions() {
     'name' => 'delete own general_course_group content',
     'roles' => array(
       'administrator' => 'administrator',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'delete own help_entry content'.
+  $permissions['delete own help_entry content'] = array(
+    'name' => 'delete own help_entry content',
+    'roles' => array(
+      'Content Admin' => 'Content Admin',
     ),
     'module' => 'node',
   );
@@ -803,6 +855,13 @@ function course_creation_features_user_default_permissions() {
     'module' => 'admin_menu',
   );
 
+  // Exported permission: 'edit any announcement_entry content'.
+  $permissions['edit any announcement_entry content'] = array(
+    'name' => 'edit any announcement_entry content',
+    'roles' => array(),
+    'module' => 'node',
+  );
+
   // Exported permission: 'edit any article content'.
   $permissions['edit any article content'] = array(
     'name' => 'edit any article content',
@@ -857,6 +916,13 @@ function course_creation_features_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'edit any help_entry content'.
+  $permissions['edit any help_entry content'] = array(
+    'name' => 'edit any help_entry content',
+    'roles' => array(),
+    'module' => 'node',
+  );
+
   // Exported permission: 'edit any instructor_general_info content'.
   $permissions['edit any instructor_general_info content'] = array(
     'name' => 'edit any instructor_general_info content',
@@ -895,6 +961,15 @@ function course_creation_features_user_default_permissions() {
   $permissions['edit any teacher_assistant content'] = array(
     'name' => 'edit any teacher_assistant content',
     'roles' => array(),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'edit own announcement_entry content'.
+  $permissions['edit own announcement_entry content'] = array(
+    'name' => 'edit own announcement_entry content',
+    'roles' => array(
+      'Content Admin' => 'Content Admin',
+    ),
     'module' => 'node',
   );
 
@@ -958,6 +1033,15 @@ function course_creation_features_user_default_permissions() {
     'name' => 'edit own general_course_group content',
     'roles' => array(
       'administrator' => 'administrator',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'edit own help_entry content'.
+  $permissions['edit own help_entry content'] = array(
+    'name' => 'edit own help_entry content',
+    'roles' => array(
+      'Content Admin' => 'Content Admin',
     ),
     'module' => 'node',
   );
