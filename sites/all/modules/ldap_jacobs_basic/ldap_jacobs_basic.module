@@ -72,7 +72,6 @@ function ldap_jacobs_basic_login_validate( $form, &$form_state){
 		$user = user_load_by_name($username);
 
 		if(!$account_initial){
-
 			// * Collecting LDAP data
 			$ldap_username = variable_get('ldap_username');
 			$ldap_password = variable_get('ldap_password');

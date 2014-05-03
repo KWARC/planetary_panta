@@ -2,6 +2,7 @@
 //include "/www/ssl/grader_login/ldap/data.php";
 
 define("LDAP_USER","sys-csfaculty");
+@ldap_set_option($ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
 
 
 
