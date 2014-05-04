@@ -764,7 +764,7 @@ function course_creation_block_view($delta = '') {
 
 
 
-function getContent(){
+function course_creation_get_memberships(){
 	$view = views_get_view('test');
 	$view->init();
     $view->execute();
@@ -820,6 +820,27 @@ function getContent(){
 
     	}
     }
+
+    return array(
+    	"instructor" => $instructor_membership, 
+   		"ta" => $ta_membership,
+   		"student" => $student_membership, 
+   		"administrator_member" => $administrator_member_membership,
+   		);
+
+}
+
+
+function getContent(){
+
+	$membership_array = course_creation_get_memberships();
+
+	$instructor_membership = $membership_array["instructor"];
+   	$ta_membership = $membership_array["ta"];
+  	$student_membership = $membership_array["student"];
+  	$administrator_member_membership = $membership_array["administrator_member"];
+
+
 
     $result = "";
 
@@ -883,10 +904,16 @@ EOT;
 $result.=l(t($title), "node/$id");
 $result.="<br>";
 	}
-	$result.= "<br>";
 
+
+	$result.= "<br>";
 	$result.="<strong>";
 	$result.=l(t("Add Course Instance"), "node/add/course-creation-form");
+	$result.="</strong><br>";
+
+
+	$result.="<strong>";
+	$result.=l(t("Delete Course Instance"), "delete-course-instance");
 	$result.="</strong><br><br>";
 }
 
@@ -1229,6 +1256,13 @@ function course_creation_menu() {
     'access callback' => TRUE,
     );
 
+   $items['delete-course-instance'] = array(
+   	'title' => 'Delete Course Instance',
+   	'page callback' => "drupal_get_form",
+   	"page arguments" => array("course_creation_delete_instance_form", 0),
+   	"access callback" => TRUE,
+   	);
+
   return $items;
 }
 
@@ -1394,6 +1428,8 @@ function course_creation_form2($form,&$form_submit, $variable){
 
 
 
+
+
 function course_creation_form2_submit($form, &$form_state){
 	$course_id = intval($form_state['values']['hid']);
 
@@ -1443,11 +1479,77 @@ function course_creation_form2_submit($form, &$form_state){
 	
 
 
+}
 
 
 
+
+
+
+function course_creation_delete_instance_form($form,&$form_submit){
+  	
+	$membership_array = course_creation_get_memberships();
+
+	
+  	$administrator_member_membership = $membership_array["administrator_member"];
+
+
+  	$result = "";
+  	$general_instance = course_creation_get_course_instances_for_general_courses();
+  	$options = array();
+	if(count($administrator_member_membership)){
+		foreach($administrator_member_membership as $id){
+			$instances = $general_instance[$id];
+			foreach($instances as $instance){
+				$node_instance = node_load($instance);
+				$options[$instance] = $node_instance->title;
+			}
+		}
+			
+	}  	
+
+	$form["instances_to_delete"] = array(
+	   '#title' => t("Delete Course Instances"),
+	   '#description' => "The set-up nodes of these instances will be deleted.",
+	   '#type' => 'checkboxes',
+	   '#options' => $options,
+	);
+
+
+
+	$form['submit_add'] = array(
+		  '#value' => 'Delete',
+		  '#type' => 'submit',
+		  '#weight' => 7,
+		);
+
+
+
+	return $form;
+	
 
 }
+
+
+
+
+function course_creation_delete_instance_form_submit($form, &$form_state){
+	if($form_state["values"]["op"] == "Delete"){
+	
+
+		$instances = $form_state['values']['instances_to_delete'];
+		
+		foreach($instances as $instance_id){
+			if($instance_id){
+				// Delete this instance;
+				course_creation_delete_course_instance($instance_id);
+			}
+		}
+
+	}
+}
+
+
 
 
 
@@ -1485,3 +1587,39 @@ function get_role_by_name_in_gryoup($name, $gr_bundle){
       return $query->execute();
 }
 
+
+
+function course_creation_get_course_instances_for_general_courses(){
+	$nodes = node_load_multiple(array(), array('type' => 'course_group'));
+
+	$result = array();
+
+	foreach($nodes as $nid => $node){
+		$general_course_id = $node->field_general_course_id["und"]["0"]["value"];
+		$result[$general_course_id][] = $nid;
+	}
+
+	return $result;
+}
+
+
+function course_creation_delete_course_instance($nid){
+	$group = node_load($nid);
+
+	// Find course_creatio_form node id
+	$course_creation_form_nodes = node_load_multiple(array(), array('type' => 'course_creation_form'));
+	foreach($course_creation_form_nodes as $form){
+		if($form->field_group_id["und"]["0"]["value"] == $nid){
+			break;
+		}
+	}
+
+	$creation_form_id = $form->nid;
+	$creation_description_id = $group->field_course_description_id["und"]["0"]["value"];
+	
+
+	// Delete only these nodes 
+	// More nodes can be added
+	node_delete_multiple(array($nid, $creation_form_id, $creation_description_id));	
+
+}
