@@ -770,7 +770,6 @@ function course_creation_get_memberships(){
 	$view->init();
     $view->execute();
   	
-  	dpm($view);
    	
    	$instructor_membership = array();
    	$ta_membership = array();
