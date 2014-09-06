@@ -764,11 +764,14 @@ function course_creation_block_view($delta = '') {
 
 
 
+
 function course_creation_get_memberships(){
 	$view = views_get_view('test');
 	$view->init();
     $view->execute();
-
+  	
+  	dpm($view);
+   	
    	$instructor_membership = array();
    	$ta_membership = array();
   	$student_membership = array();
@@ -776,7 +779,7 @@ function course_creation_get_memberships(){
   	//dd($view->result);
   	// BUild an array with all the Course Group Nodes
   	$huge_array = array();
-  	foreach($view->result as $res){
+   	foreach($view->result as $res){
   		$array_roles2 = og_get_user_roles("node", $res->og_membership_users_gid, $res->uid);
 
   		foreach($array_roles2 as $r)
