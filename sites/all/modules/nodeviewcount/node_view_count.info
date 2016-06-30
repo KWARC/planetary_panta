@@ -3,9 +3,9 @@ description = Module count view of node for user.
 core = 7.x
 
 configure = admin/config/content/count-view
-; Information added by drupal.org packaging script on 2013-08-21
-version = "7.x-1.1"
+; Information added by drupal.org packaging script on 2013-10-29
+version = "7.x-1.6"
 core = "7.x"
 project = "nodeviewcount"
-datestamp = "1377072994"
+datestamp = "1383036373"
 

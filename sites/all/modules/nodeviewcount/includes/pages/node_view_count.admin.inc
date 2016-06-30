@@ -6,7 +6,6 @@
 function node_view_count_admin_settings_form($form, &$form_state) {
   // Get node types that were checked on admin settings form.
   $options_node_type = node_view_count_get_checked_node_types();
-
   $form['node_view_count_node_types_options'] = array(
     '#title' => t('Node types'),  
     '#description' => t('Choose content types to count views of node.'),  
@@ -16,7 +15,6 @@ function node_view_count_admin_settings_form($form, &$form_state) {
   );
   // Get user roles options.
   $options_user_roles = node_view_count_get_checked_user_roles();
-  
   $form['node_view_count_user_roles_options'] = array(
     '#title' => t('User roles'),  
     '#description' => t('Choose user roles to count node views for.'),  

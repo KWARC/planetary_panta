@@ -193,7 +193,7 @@ function _subscriptions_reference_node_options($account, $node) {
   $field_name = subscriptions_reference_get_field_name($node, 'parent');
   if ($field_name) {
     $options['reference'][] = array(
-      'name' => t('Get notificatians when Answers are posted'),
+      'name' => t('Subscribe to this node'),
       'params' => array(
         'module' => SUBSCRIPTIONS_REFERENCE_MODULE,
         'field' => $field_name,
@@ -282,7 +282,6 @@ function _subscriptions_reference_types() {
     );
   }
 
-  
   return $types;
 }
 

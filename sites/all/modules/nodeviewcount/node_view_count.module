@@ -31,7 +31,7 @@ function node_view_count_node_view($node, $view_mode, $langcode) {
   if (!node_view_count_is_user_count($user)) {
 		return;
 	}
-  node_view_count_count_view_insert($node->nid, $user->uid);
+  node_view_count_db_count_view_insert($node->nid, $user->uid);
 }
 
 function node_view_count_views_api() {

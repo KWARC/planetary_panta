@@ -27,13 +27,13 @@ function node_view_count_is_user_count($user) {
  * @param object $user
  * @return int count of views.
  */
-function node_view_count_count_node_view($node, $user) {
+function node_view_count_count_node_view($node, $user = NULL, $distinct_users = FALSE) {
   if (!node_view_count_is_node_count($node)) {
 		return;
 	}  
-  if (!node_view_count_is_user_count($user)) {
+  if (!is_null($user) && !node_view_count_is_user_count($user)) {
 		return;
 	}
-  $node_view_count = node_view_count_count_view_select($node->nid, $user->uid);
-  return count($node_view_count);
+  $node_view_count = node_view_count_db_count_view_select($node, $user, $distinct_users);
+  return $node_view_count;
 }
